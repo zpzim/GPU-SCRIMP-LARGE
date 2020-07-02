@@ -120,6 +120,8 @@ class Tile {
   // Initializes the precomputed statistics required by the current tile
   void InitStats(const PrecomputedInfo &a, const PrecomputedInfo &b);
 
+  void InitStats(const CombinedStats &ab);
+
   // Initializes the ouptut vector with the current best-so-far profile
   SCAMPError_t InitProfile(Profile *profile_a, Profile *profile_b);
 

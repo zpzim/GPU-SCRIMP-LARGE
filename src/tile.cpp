@@ -404,6 +404,19 @@ void Tile::InitStats(const PrecomputedInfo &a, const PrecomputedInfo &b) {
   Memcopy(_means_B.get(), b.means().data() + _current_tile_row, bytes_b, false);
 }
 
+void Tile::InitStats(const CombinedStats &ab) {
+  size_t bytes_a =
+      (_current_tile_width - _info->mp_window + 1) * sizeof(double);
+  size_t bytes_b =
+      (_current_tile_height - _info->mp_window + 1) * sizeof(double);
+
+  Memcopy(_df_A.get(), ab.dc_bkwd.data() + _current_tile_col, bytes_a, false);
+  Memcopy(_dg_B.get(), ab.dr_bkwd.data() + _current_tile_row, bytes_b, false);
+
+  Memcopy(_dg_A.get(), ab.dc_fwd.data() + _current_tile_col, bytes_a, false);
+  Memcopy(_df_B.get(), ab.dr_fwd.data() + _current_tile_row, bytes_b, false);
+}
+
 std::pair<int64_t, int64_t> Tile::get_profile_dims_from_device() {
   std::pair<int64_t, int64_t> result;
   result.first = 0;

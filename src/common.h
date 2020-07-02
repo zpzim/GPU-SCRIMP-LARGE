@@ -270,6 +270,14 @@ struct OpInfo {
   int64_t rows_per_cell;
 };
 
+struct CombinedStats {
+ public:
+  std::vector<double> dr_fwd;
+  std::vector<double> dr_bkwd;
+  std::vector<double> dc_fwd;
+  std::vector<double> dc_bkwd;
+};
+
 // Struct containing the precomputed statistics for an input time series
 struct PrecomputedInfo {
  private:

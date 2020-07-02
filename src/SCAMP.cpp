@@ -127,6 +127,7 @@ void SCAMP_Operation::do_work(const std::vector<double> &timeseries_a,
     //  we will be using from the global arrays.
     tile.InitTimeseries(timeseries_a, timeseries_b);
     tile.InitStats(_precompA, _precompB);
+    tile.InitStats(_precomp);
     bool done = false;
     while (!done) {
       // Copy the portion of the best-so-far profile
@@ -194,6 +195,9 @@ SCAMPError_t SCAMP_Operation::do_join(const std::vector<double> &timeseries_a,
                          _info.mp_window);
   compute_statistics_cpu(timeseries_b_clean, nanvals_b, &_precompB,
                          _info.mp_window);
+
+  _precomp = compute_combined_stats_cpu(timeseries_a_clean, timeseries_b_clean,
+                                        _info.mp_window);
 
   // Populate Work Queue with tiles
   get_tiles();

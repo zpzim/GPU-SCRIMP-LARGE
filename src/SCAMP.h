@@ -22,6 +22,9 @@ class SCAMP_Operation {
   // Precomputed statistics used by tiles
   PrecomputedInfo _precompA, _precompB;
 
+  // Precomputed statistics computed from both input A and B.
+  CombinedStats _precomp;
+
   // Result vectors
   Profile *_profile_a, *_profile_b;
 
