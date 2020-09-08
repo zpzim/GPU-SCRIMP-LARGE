@@ -25,7 +25,7 @@ template <typename DATA_TYPE, typename VEC2_DATA_TYPE, typename VEC4_DATA_TYPE,
           bool COMPUTE_COLS, SCAMPProfileType PROFILE_TYPE, int blocks_per_sm,
           int tile_height, int BLOCKSZ>
 __global__ void __launch_bounds__(BLOCKSZ, blocks_per_sm)
-    do_tile(SCAMPKernelInputArgs<double> args, PROFILE_OUTPUT_TYPE *profile_A,
+    do_tile(SCAMPKernelInputArgs args, PROFILE_OUTPUT_TYPE *profile_A,
             PROFILE_OUTPUT_TYPE *profile_B) {
   constexpr int tile_width = tile_height + BLOCKSZ * DIAGS_PER_THREAD;
 
@@ -169,7 +169,7 @@ __global__ void __launch_bounds__(BLOCKSZ, blocks_per_sm)
 template <typename PROFILE_OUTPUT_TYPE, typename PROFILE_DATA_TYPE,
           typename DISTANCE_TYPE, SCAMPProfileType PROFILE_TYPE,
           int BLOCKSPERSM>
-SCAMPError_t LaunchDoTile(SCAMPKernelInputArgs<double> args,
+SCAMPError_t LaunchDoTile(SCAMPKernelInputArgs args,
                           PROFILE_OUTPUT_TYPE *profile_A,
                           PROFILE_OUTPUT_TYPE *profile_B,
                           SCAMPPrecisionType fp_type, bool computing_rows,
@@ -271,7 +271,7 @@ SCAMPError_t LaunchDoTile(SCAMPKernelInputArgs<double> args,
   return SCAMP_NO_ERROR;
 }
 
-SCAMPError_t compute_gpu_resources_and_launch(SCAMPKernelInputArgs<double> args,
+SCAMPError_t compute_gpu_resources_and_launch(SCAMPKernelInputArgs args,
                                               Tile *t, void *profile_a,
                                               void *profile_b, bool do_rows,
                                               bool do_cols) {
@@ -325,28 +325,28 @@ SCAMPError_t compute_gpu_resources_and_launch(SCAMPKernelInputArgs<double> args,
 }
 
 SCAMPError_t gpu_kernel_self_join_upper(Tile *t) {
-  SCAMPKernelInputArgs<double> tile_args(t, false, false);
+  SCAMPKernelInputArgs tile_args(t, false, false);
   return compute_gpu_resources_and_launch(
       tile_args, t, t->profile_a(), t->profile_b(), t->info()->computing_rows,
       t->info()->computing_cols);
 }
 
 SCAMPError_t gpu_kernel_self_join_lower(Tile *t) {
-  SCAMPKernelInputArgs<double> tile_args(t, true, false);
+  SCAMPKernelInputArgs tile_args(t, true, false);
   return compute_gpu_resources_and_launch(
       tile_args, t, t->profile_b(), t->profile_a(), t->info()->computing_cols,
       t->info()->computing_rows);
 }
 
 SCAMPError_t gpu_kernel_ab_join_upper(Tile *t) {
-  SCAMPKernelInputArgs<double> tile_args(t, false, true);
+  SCAMPKernelInputArgs tile_args(t, false, true);
   return compute_gpu_resources_and_launch(
       tile_args, t, t->profile_a(), t->profile_b(), t->info()->computing_rows,
       t->info()->computing_cols);
 }
 
 SCAMPError_t gpu_kernel_ab_join_lower(Tile *t) {
-  SCAMPKernelInputArgs<double> tile_args(t, true, true);
+  SCAMPKernelInputArgs tile_args(t, true, true);
   return compute_gpu_resources_and_launch(
       tile_args, t, t->profile_b(), t->profile_a(), t->info()->computing_cols,
       t->info()->computing_rows);

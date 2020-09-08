@@ -2,9 +2,8 @@
 
 namespace SCAMP {
 
-template <typename T>
-SCAMPKernelInputArgs<T>::SCAMPKernelInputArgs(Tile *t, bool transpose,
-                                              bool ab_join) {
+SCAMPKernelInputArgs::SCAMPKernelInputArgs(Tile *t, bool transpose,
+                                           bool ab_join) {
   cov = t->QT();
   dfa = transpose ? t->dfb() : t->dfa();
   dfb = transpose ? t->dfa() : t->dfb();
@@ -37,8 +36,7 @@ SCAMPKernelInputArgs<T>::SCAMPKernelInputArgs(Tile *t, bool transpose,
   global_start_row = t->get_tile_row();
 }
 
-template <typename T>
-void SCAMPKernelInputArgs<T>::Print() {
+void SCAMPKernelInputArgs::Print() {
   std::cout << "cov = " << cov << std::endl;
   std::cout << "dfa = " << dfa << std::endl;
   std::cout << "dfb = " << dfb << std::endl;
@@ -52,7 +50,5 @@ void SCAMPKernelInputArgs<T>::Print() {
   std::cout << "exclusion_upper = " << exclusion_upper << std::endl;
   std::cout << "exclusion_lower = " << exclusion_lower << std::endl;
 }
-
-template struct SCAMPKernelInputArgs<double>;
 
 }  // namespace SCAMP

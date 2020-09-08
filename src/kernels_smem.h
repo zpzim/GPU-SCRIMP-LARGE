@@ -12,7 +12,7 @@ template <typename DATA_TYPE, typename PROFILE_DATA_TYPE, bool COMPUTE_ROWS,
           bool COMPUTE_COLS, int tile_width, int tile_height, int BLOCKSZ,
           SCAMPProfileType PROFILE_TYPE>
 __device__ inline void init_smem_with_static_initializer(
-    SCAMPKernelInputArgs<double> &args,
+    SCAMPKernelInputArgs &args,
     SCAMPSmem<DATA_TYPE, PROFILE_DATA_TYPE, PROFILE_TYPE> &smem,
     uint32_t col_start, uint32_t row_start, PROFILE_DATA_TYPE initializer) {
   int global_position = col_start + threadIdx.x;
@@ -46,7 +46,7 @@ template <typename DATA_TYPE, typename PROFILE_DATA_TYPE, bool COMPUTE_ROWS,
           bool COMPUTE_COLS, int tile_width, int tile_height, int BLOCKSZ,
           SCAMPProfileType PROFILE_TYPE>
 __device__ inline void init_smem_with_dynamic_initializer(
-    SCAMPKernelInputArgs<double> &args,
+    SCAMPKernelInputArgs &args,
     SCAMPSmem<DATA_TYPE, PROFILE_DATA_TYPE, PROFILE_TYPE> &smem,
     PROFILE_DATA_TYPE *initializer_col, PROFILE_DATA_TYPE *initializer_row,
     uint32_t col_start, uint32_t row_start) {
@@ -81,7 +81,7 @@ template <typename DATA_TYPE, typename PROFILE_DATA_TYPE,
           typename PROFILE_OUTPUT_TYPE, bool COMPUTE_ROWS, bool COMPUTE_COLS,
           int tile_width, int tile_height, int BLOCKSZ>
 __device__ void init_smem(
-    SCAMPKernelInputArgs<double> &args,
+    SCAMPKernelInputArgs &args,
     SCAMPSmem<DATA_TYPE, PROFILE_DATA_TYPE, PROFILE_TYPE_1NN> &smem,
     PROFILE_OUTPUT_TYPE *profile_a, PROFILE_OUTPUT_TYPE *profile_b,
     uint32_t col_start, uint32_t row_start) {
@@ -95,7 +95,7 @@ template <typename DATA_TYPE, typename PROFILE_DATA_TYPE,
           typename PROFILE_OUTPUT_TYPE, bool COMPUTE_ROWS, bool COMPUTE_COLS,
           int tile_width, int tile_height, int BLOCKSZ>
 __device__ void init_smem(
-    SCAMPKernelInputArgs<double> &args,
+    SCAMPKernelInputArgs &args,
     SCAMPSmem<DATA_TYPE, PROFILE_DATA_TYPE, PROFILE_TYPE_1NN_INDEX> &smem,
     PROFILE_OUTPUT_TYPE *profile_a, PROFILE_OUTPUT_TYPE *profile_b,
     uint32_t col_start, uint32_t row_start) {
@@ -109,7 +109,7 @@ template <typename DATA_TYPE, typename PROFILE_DATA_TYPE,
           typename PROFILE_OUTPUT_TYPE, bool COMPUTE_ROWS, bool COMPUTE_COLS,
           int tile_width, int tile_height, int BLOCKSZ>
 __device__ void init_smem(
-    SCAMPKernelInputArgs<double> &args,
+    SCAMPKernelInputArgs &args,
     SCAMPSmem<DATA_TYPE, PROFILE_DATA_TYPE, PROFILE_TYPE_SUM_THRESH> &smem,
     PROFILE_OUTPUT_TYPE *profile_a, PROFILE_OUTPUT_TYPE *profile_b,
     uint32_t col_start, uint32_t row_start) {
@@ -123,7 +123,7 @@ template <typename DATA_TYPE, typename PROFILE_DATA_TYPE,
           typename PROFILE_OUTPUT_TYPE, bool COMPUTE_ROWS, bool COMPUTE_COLS,
           int tile_width, int tile_height, int BLOCKSZ>
 __device__ void init_smem(
-    SCAMPKernelInputArgs<double> &args,
+    SCAMPKernelInputArgs &args,
     SCAMPSmem<DATA_TYPE, PROFILE_DATA_TYPE, PROFILE_TYPE_MATRIX_SUMMARY> &smem,
     PROFILE_OUTPUT_TYPE *profile_a, PROFILE_OUTPUT_TYPE *profile_b,
     uint32_t col_start, uint32_t row_start) {
@@ -139,7 +139,7 @@ __device__ void init_smem(
 template <typename DATA_TYPE, typename PROFILE_DATA_TYPE,
           typename PROFILE_OUTPUT_TYPE, bool COMPUTE_ROWS, bool COMPUTE_COLS,
           int tile_width, int tile_height, int BLOCKSZ>
-__device__ void init_smem(SCAMPKernelInputArgs<double> &args,
+__device__ void init_smem(SCAMPKernelInputArgs &args,
                           SCAMPSmem<DATA_TYPE, PROFILE_DATA_TYPE,
                                     PROFILE_TYPE_APPROX_ALL_NEIGHBORS> &smem,
                           PROFILE_OUTPUT_TYPE *profile_a,
@@ -186,7 +186,7 @@ template <typename DATA_TYPE, typename PROFILE_OUTPUT_TYPE,
           typename PROFILE_DATA_TYPE, bool COMPUTE_COLS, bool COMPUTE_ROWS,
           int TILE_WIDTH, int TILE_HEIGHT, int BLOCKSZ>
 __device__ void write_back(
-    SCAMPKernelInputArgs<double> &args,
+    SCAMPKernelInputArgs &args,
     SCAMPSmem<DATA_TYPE, PROFILE_DATA_TYPE, PROFILE_TYPE_SUM_THRESH> &smem,
     uint32_t tile_start_x, uint32_t tile_start_y, uint32_t n_x, uint32_t n_y,
     PROFILE_OUTPUT_TYPE *profile_A, PROFILE_OUTPUT_TYPE *profile_B) {
@@ -217,7 +217,7 @@ template <typename DATA_TYPE, typename PROFILE_OUTPUT_TYPE,
           typename PROFILE_DATA_TYPE, bool COMPUTE_COLS, bool COMPUTE_ROWS,
           int TILE_WIDTH, int TILE_HEIGHT, int BLOCKSZ>
 __device__ void write_back(
-    SCAMPKernelInputArgs<double> &args,
+    SCAMPKernelInputArgs &args,
     SCAMPSmem<DATA_TYPE, PROFILE_DATA_TYPE, PROFILE_TYPE_1NN> &smem,
     uint32_t tile_start_x, uint32_t tile_start_y, uint32_t n_x, uint32_t n_y,
     PROFILE_OUTPUT_TYPE *profile_A, PROFILE_OUTPUT_TYPE *profile_B) {
@@ -248,7 +248,7 @@ template <typename DATA_TYPE, typename PROFILE_OUTPUT_TYPE,
           typename PROFILE_DATA_TYPE, bool COMPUTE_COLS, bool COMPUTE_ROWS,
           int TILE_WIDTH, int TILE_HEIGHT, int BLOCKSZ>
 __device__ void write_back(
-    SCAMPKernelInputArgs<double> &args,
+    SCAMPKernelInputArgs &args,
     SCAMPSmem<DATA_TYPE, PROFILE_DATA_TYPE, PROFILE_TYPE_1NN_INDEX> &smem,
     uint32_t tile_start_x, uint32_t tile_start_y, uint32_t n_x, uint32_t n_y,
     PROFILE_OUTPUT_TYPE *profile_A, PROFILE_OUTPUT_TYPE *profile_B) {
@@ -283,7 +283,7 @@ template <typename DATA_TYPE, typename PROFILE_OUTPUT_TYPE,
           typename PROFILE_DATA_TYPE, bool COMPUTE_COLS, bool COMPUTE_ROWS,
           int TILE_WIDTH, int TILE_HEIGHT, int BLOCKSZ>
 __device__ void write_back(
-    SCAMPKernelInputArgs<double> &args,
+    SCAMPKernelInputArgs &args,
     SCAMPSmem<DATA_TYPE, PROFILE_DATA_TYPE, PROFILE_TYPE_MATRIX_SUMMARY> &smem,
     uint32_t tile_start_x, uint32_t tile_start_y, uint32_t n_x, uint32_t n_y,
     PROFILE_OUTPUT_TYPE *profile_A, PROFILE_OUTPUT_TYPE *profile_B) {
@@ -330,7 +330,7 @@ __device__ void write_back(
 template <typename DATA_TYPE, typename PROFILE_OUTPUT_TYPE,
           typename PROFILE_DATA_TYPE, bool COMPUTE_COLS, bool COMPUTE_ROWS,
           int TILE_WIDTH, int TILE_HEIGHT, int BLOCKSZ>
-__device__ void write_back(SCAMPKernelInputArgs<double> &args,
+__device__ void write_back(SCAMPKernelInputArgs &args,
                            SCAMPSmem<DATA_TYPE, PROFILE_DATA_TYPE,
                                      PROFILE_TYPE_APPROX_ALL_NEIGHBORS> &smem,
                            uint32_t tile_start_x, uint32_t tile_start_y,
